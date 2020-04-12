@@ -1,4 +1,4 @@
-# rundll32-gui-Druckverwaltung-Win10
+# rundll32-printui-gui-Druckverwaltung-Win10 
 This is a script to Manage the Windows 10 Network Printer with a easy GUI. It is designed for your Users.
 
 I needed a solution for our WS 2016 TS Farm because the standard Win 2016 Printer GUI has a lot of bugs. With that as
