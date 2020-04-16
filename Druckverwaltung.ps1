@@ -90,7 +90,7 @@ function mainwindow {
     $var.tb1.add_TextChanged({
         $var.search = @()
         $var.search += $($var.actprinter | ? { $_ -like "*$($var.tb1.Text)*" })
-        $var.lb1.ItemsSource = $var.search
+        $var.lb1.ItemsSource = @($var.search | Sort)
     })
 ############################################################# 
 #############################################################
@@ -122,7 +122,7 @@ function mainwindow {
     $var.tb2.add_TextChanged({
         $var.search = @()
         $var.search += $($var.servprinter | ? { $_ -like "*$($var.tb2.Text)*" })
-        $var.lb2.ItemsSource = $var.search
+        $var.lb2.ItemsSource = @($var.search | Sort)
     })
 #############################################################
 #############################################################
@@ -191,7 +191,9 @@ $var.timer.add_Tick({
         $var.actprinter += $(Get-Printer).Name | Sort | where {$_ -match "\\"}
         $var.lb1.ItemsSource = $var.actprinter
     }
-    lb3_pre
+    if (!$($var.tb1.Text)){
+        lb3_pre
+    }
 })
 $var.timer.Interval = 500
 $var.timer.Start()
