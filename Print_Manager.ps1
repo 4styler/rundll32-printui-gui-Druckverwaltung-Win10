@@ -47,6 +47,7 @@ function mainwindow {
         <Button x:Name="b3" Content="&lt;---------As standard--------&gt;" HorizontalAlignment="Left" Margin="315,119,0,0" VerticalAlignment="Top" Width="162"/>
         <Button x:Name="b4" Content="Devices and Printer" HorizontalAlignment="Left" Margin="315,41,0,0" VerticalAlignment="Top" Width="162" Height="23"/>
         <Button x:Name="b5" Content="&lt;-------Print test page            " HorizontalAlignment="Left" Margin="315,144,0,0" VerticalAlignment="Top" Width="162"/>
+        <Button x:Name="b6" Content="Devices and Printer Old" HorizontalAlignment="Left" Margin="315,13,0,0" VerticalAlignment="Top" Width="162" Height="23"/>
         <TextBlock x:Name="tbl1" HorizontalAlignment="Left" Margin="315,180,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="325" Width="162"/>
     </Grid>
 </Window>
@@ -63,6 +64,7 @@ function mainwindow {
     $var.b3 = $var.MainWindow.FindName('b3')
     $var.b4 = $var.MainWindow.FindName('b4')
     $var.b5 = $var.MainWindow.FindName('b5')
+    $var.b6 = $var.MainWindow.FindName('b6')
     $var.tbl1 = $var.MainWindow.FindName('tbl1')
 
     $var.MainWindow.add_MouseLeftButtonDown({
@@ -152,8 +154,14 @@ $var.b2.add_Click({
 #############################################################
 #############################################################
 $var.b3.add_Click({
-    if ($var.lb1.SelectedItem){
-        rundll32 printui.dll,PrintUIEntry /in /y /n "$($var.lb1.SelectedItem)"
+    if ($var.lb1.SelectedItem -or $var.lb2.SelectedItem){
+        if ($var.lb1.SelectedItem){
+            rundll32 printui.dll,PrintUIEntry /y /n "$($var.lb1.SelectedItem)"
+        }
+        if ($var.lb2.SelectedItem){
+            Start-Process -Wait rundll32 -ArgumentList "printui.dll,PrintUIEntry /in /n $($var.lb2.SelectedItem)"
+            rundll32 printui.dll,PrintUIEntry /y /n "$($var.lb2.SelectedItem)"
+        }
     }else{[System.Windows.Forms.MessageBox]::Show("Please choose a printer on the left.","Missing selection",0)}
 })
 
@@ -169,6 +177,11 @@ $var.b5.add_Click({
         $Printer = $Printers | where {$_.Name -eq $var.lb1.SelectedItem}
         Invoke-CimMethod -InputObject $Printer -MethodName PrintTestPage
     }else{[System.Windows.Forms.MessageBox]::Show("Please choose a printer on the left.","Missing selection",0)}
+})
+
+$var.b6.add_Click({
+    #control printers
+    cmd /c "explorer.exe shell:::{26EE0668-A00A-44D7-9371-BEB064C98683}\0\::{2227A280-3AEA-1069-A2DE-08002B30309D}"
 })
 #############################################################
 #############################################################
