@@ -159,7 +159,7 @@ $var.b3.add_Click({
             rundll32 printui.dll,PrintUIEntry /y /n "$($var.lb1.SelectedItem)"
         }
         if ($var.lb2.SelectedItem){
-            Start-Process -Wait rundll32 -ArgumentList "printui.dll,PrintUIEntry /in /n $($var.lb2.SelectedItem)"
+            Start-Process -Wait rundll32 -ArgumentList "printui.dll,PrintUIEntry /in /n $('"' + $var.lb2.SelectedItem + '"')"
             rundll32 printui.dll,PrintUIEntry /y /n "$($var.lb2.SelectedItem)"
         }
     }else{[System.Windows.Forms.MessageBox]::Show("Please choose a printer on the left.","Missing selection",0)}
