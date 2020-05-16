@@ -1,7 +1,9 @@
 ﻿#Create the hashtable. Main variable
 $var = [hashtable]::Synchronized(@{})
 
-# Specify the print server here. Prepared for 2 pieces:
+# Specify the print server here. Prepared for 1:
+# if you need more, please add here more variables in the same style as the existing:
+# If you will have more than one Printserver, please also change the code after line 104.
 $var.prints1 = "$env:COMPUTERNAME"
 #$var.prints2 = "$env:COMPUTERNAME"
 
@@ -104,7 +106,7 @@ function mainwindow {
         #$a = $(Get-Printer -ComputerName $var.prints1) + $(Get-Printer -ComputerName $var.prints2)
         # 3 Server (needed new variable at the beginning of the Script):
         #$a = $(Get-Printer -ComputerName $var.prints1) + $(Get-Printer -ComputerName $var.prints2) + $(Get-Printer -ComputerName $var.prints3)
-        # n Server: usw...
+        # n Server: and so on...
         $var.servprinter = @()
         $a | Sort | foreach {
             $var.servprinter += $("\\" + $_.ComputerName + "\" + $_.Name)
