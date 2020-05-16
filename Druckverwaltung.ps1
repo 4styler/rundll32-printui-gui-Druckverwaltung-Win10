@@ -1,7 +1,10 @@
-﻿#Erstellen des Hashtables. Hauptvariable
+﻿#Create the Hashtables. Mainvariable
 $var = [hashtable]::Synchronized(@{})
 
-#Hier die Druckserver angeben. Für 2 Stück vorbereitet:
+# Hier die Druckserver angeben. Für einen vorbereitet:
+# Wenn man mehr wie einen Druckserver hat müssen hier noch die entsprechenden variablen in der gleichen
+# art hinzugefügt werden.
+# Danach müssen noch dem Beispiel folgend die Variablen ab Zeile 105 angepasst werden.
 $var.prints1 = "$env:COMPUTERNAME"
 #$var.prints2 = "$env:COMPUTERNAME"
 
